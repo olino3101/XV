@@ -17,9 +17,9 @@ namespace Tookuyam
     {
         [SerializeField]
         private UIDocument uiDocument;
-        ListView objectList;
         [SerializeField]
         private List<SelectableObject> selectableObjects;
+        ListView objectList;
 
         void OnEnable()
         {
@@ -34,7 +34,7 @@ namespace Tookuyam
             listView.makeItem = makeItem;
             listView.bindItem = bindItem;
             listView.itemsSource = selectableObjects;
-            listView.selectionType = SelectionType.Multiple;
+            listView.selectionType = SelectionType.Single;
 
             // Callback invoked when the user double clicks an item
             listView.itemsChosen += OnItemsChosen;
