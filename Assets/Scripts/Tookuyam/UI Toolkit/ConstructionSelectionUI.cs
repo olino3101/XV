@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine.UIElements;
 using System.Runtime.CompilerServices;
+using UnityEngine.InputSystem;
 
 namespace Tookuyam
 {
@@ -55,6 +56,16 @@ namespace Tookuyam
                 break;
             }
             gameObject.SetActive(false);
+        }
+
+        void Update()
+        {
+            Keyboard current = Keyboard.current;
+            if (current.escapeKey.IsActuated()) // Close Menu <= Todo: Replace action with Input System
+            {
+                gameObject.SetActive(false);
+                Debug.Log("test");
+            }
         }
     }
 }
