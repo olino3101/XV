@@ -2,50 +2,59 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 using UnityEngine.UIElements;
+using System.Runtime.CompilerServices;
 
-public class ConstructionSelectionUI : MonoBehaviour
+namespace Tookuyam
 {
-    public UIDocument uiDocument;
-    ListView objectList;
-
-    void OnEnable()
+    [Serializable]
+    public class SelectableObject
     {
-        objectList = uiDocument.rootVisualElement.Q<ListView>("ObjectList");
-        // Create some list of data, here simply numbers in interval [1, 1000]
-        const int itemCount = 1000;
-        var items = new List<string>(itemCount);
-        for (var i = 0; i < itemCount; i++)
-            items.Add(i.ToString());
+        public string name;
+        public GameObject gameObject;
+    }
 
-        // The "makeItem" function will be called as needed
-        // when the ListView needs more items to render
-        Func<VisualElement> makeItem = () => new Label();
+    public class ConstructionSelectionUI : MonoBehaviour
+    {
+        [SerializeField]
+        private UIDocument uiDocument;
+        ListView objectList;
+        [SerializeField]
+        private List<SelectableObject> selectableObjects;
 
-        // As the user scrolls through the list, the ListView object
-        // will recycle elements created by the "makeItem"
-        // and invoke the "bindItem" callback to associate
-        // the element with the matching data item(specified as an index in the list)
-        Action<VisualElement, int> bindItem = (e, i) => ((Label)e).text = items[i];
-
-        var listView = objectList;
-        listView.makeItem = makeItem;
-        listView.bindItem = bindItem;
-        listView.itemsSource = items;
-        listView.selectionType = SelectionType.Multiple;
-
-        // Callback invoked when the user double clicks an item
-        listView.itemsChosen += (selectedItems) =>
+        void OnEnable()
         {
-            Debug.Log("Items chosen: " + string.Join(", ", selectedItems));
-        };
+            if (selectableObjects == null)
+                return ;
+            objectList = uiDocument.rootVisualElement.Q<ListView>("ObjectList");
 
-        // Callback invoked when the user changes the selection inside the ListView
-        listView.selectedIndicesChanged += (selectedIndices) =>
+            VisualElement makeItem() => new Label();
+            void bindItem(VisualElement e, int i) => ((Label)e).text = selectableObjects[i].name;
+
+            var listView = objectList;
+            listView.makeItem = makeItem;
+            listView.bindItem = bindItem;
+            listView.itemsSource = selectableObjects;
+            listView.selectionType = SelectionType.Multiple;
+
+            // Callback invoked when the user double clicks an item
+            listView.itemsChosen += OnItemsChosen;
+        }
+
+        void OnDisable()
         {
-            Debug.Log("Index selected: " + string.Join(", ", selectedIndices));
+            if (objectList != null)
+                objectList.itemsChosen -= OnItemsChosen;
+        }
 
-            // Note: selectedIndices can also be used to get the selected items from the itemsSource directly or
-            // by using listView.viewController.GetItemForIndex(index).
-        };
+        void OnItemsChosen(IEnumerable<object> selectedItems)
+        {
+            foreach (var item in selectedItems)
+            {
+                var selectableObject = item as SelectableObject;
+                Debug.Log($"Generated {selectableObject.name}");
+                break;
+            }
+            gameObject.SetActive(false);
+        }
     }
 }
