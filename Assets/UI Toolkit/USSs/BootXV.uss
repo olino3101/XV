@@ -2,12 +2,8 @@
 }
 
 .btn-success {
-    width: 80px;
+    width: auto;
     height: 35px;
-    margin-top: 5px;
-    margin-right: 5px;
-    margin-bottom: 5px;
-    margin-left: 5px;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
@@ -15,11 +11,12 @@
     background-color: rgb(41, 233, 41);
     color: rgb(255, 255, 255);
     padding-top: 2px;
-    padding-right: 2px;
+    padding-right: 10px;
     padding-bottom: 2px;
-    padding-left: 2px;
+    padding-left: 10px;
     align-items: center;
     justify-content: space-around;
+    align-self: flex-start;
 }
 
 .btn-success:hover {
@@ -60,4 +57,18 @@
     border-right-color: rgba(203, 203, 203, 0.71);
     border-top-color: rgba(203, 203, 203, 0.71);
     border-bottom-color: rgba(203, 203, 203, 0.71);
+}
+
+.p-1 {
+    padding-top: 3px;
+    padding-right: 3px;
+    padding-bottom: 3px;
+    padding-left: 3px;
+}
+
+.m-1 {
+    margin-top: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    margin-left: 5px;
 }
