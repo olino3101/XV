@@ -1,0 +1,8 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/USSs/BootXV.uss?fileID=7433441132597879392&amp;guid=d6d3a0df91359ef44a967d4a169083c8&amp;type=3#BootXV" />
+    <ui:VisualElement class="p-1" style="height: auto; position: absolute; bottom: 0; width: 100%;">
+        <ui:VisualElement name="ConstructionButton" class="btn btn-success m-1">
+            <ui:Label text="Construction&#10;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

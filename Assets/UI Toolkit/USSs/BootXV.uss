@@ -1,0 +1,74 @@
+:root {
+}
+
+.btn-success {
+    width: auto;
+    height: 35px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    background-color: rgb(41, 233, 41);
+    color: rgb(255, 255, 255);
+    padding-top: 2px;
+    padding-right: 10px;
+    padding-bottom: 2px;
+    padding-left: 10px;
+    align-items: center;
+    justify-content: space-around;
+    align-self: flex-start;
+}
+
+.btn-success:hover {
+    background-color: rgb(32, 182, 32);
+}
+
+.btn Label {
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
+    font-size: 14px;
+}
+
+.bg-body {
+    background-color: rgb(220, 245, 245);
+}
+
+.bg-secondary {
+    background-color: rgb(125, 163, 164);
+}
+
+.p-3 {
+    padding-top: 12px;
+    padding-right: 12px;
+    padding-bottom: 12px;
+    padding-left: 12px;
+}
+
+.m-3 {
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
+
+.border-bottom {
+    border-bottom-width: 1.5px;
+    border-left-color: rgba(203, 203, 203, 0.71);
+    border-right-color: rgba(203, 203, 203, 0.71);
+    border-top-color: rgba(203, 203, 203, 0.71);
+    border-bottom-color: rgba(203, 203, 203, 0.71);
+}
+
+.p-1 {
+    padding-top: 3px;
+    padding-right: 3px;
+    padding-bottom: 3px;
+    padding-left: 3px;
+}
+
+.m-1 {
+    margin-top: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+}
