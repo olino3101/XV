@@ -52,7 +52,7 @@ namespace Tookuyam
             foreach (var item in selectedItems)
             {
                 var selectableObject = item as SelectableObject;
-                Debug.Log($"Generated {selectableObject.name}");
+                Instantiate(selectableObject.gameObject);
                 break;
             }
             gameObject.SetActive(false);
@@ -64,7 +64,6 @@ namespace Tookuyam
             if (current.escapeKey.IsActuated()) // Close Menu <= Todo: Replace action with Input System
             {
                 gameObject.SetActive(false);
-                Debug.Log("test");
             }
         }
     }
