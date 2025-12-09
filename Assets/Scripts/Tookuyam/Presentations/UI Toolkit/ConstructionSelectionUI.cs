@@ -19,13 +19,18 @@ namespace Tookuyam
         [SerializeField]
         private UIDocument uiDocument;
         [SerializeField]
+        private ConstructionModeFacade modeFacade;
+
+        [Space(10)]
+
+        [SerializeField]
         private List<SelectableObject> selectableObjects;
         ListView objectList;
 
         void OnEnable()
         {
             if (selectableObjects == null)
-                return ;
+                return;
             objectList = uiDocument.rootVisualElement.Q<ListView>("ObjectList");
 
             VisualElement makeItem() => new Label();
@@ -55,7 +60,7 @@ namespace Tookuyam
                 Instantiate(selectableObject.gameObject);
                 break;
             }
-            gameObject.SetActive(false);
+            modeFacade.ChangeMode(EConstructionModes.Edit);
         }
 
         void Update()
@@ -63,7 +68,7 @@ namespace Tookuyam
             Keyboard current = Keyboard.current;
             if (current.escapeKey.IsActuated()) // Close Menu <= Todo: Replace action with Input System
             {
-                gameObject.SetActive(false);
+                modeFacade.Exit();
             }
         }
     }
