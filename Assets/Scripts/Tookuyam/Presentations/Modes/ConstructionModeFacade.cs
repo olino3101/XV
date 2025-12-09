@@ -6,6 +6,7 @@ namespace Tookuyam
     public class ConstructionModeFacade : MonoBehaviour
     {
         public ConstructionSelectionUI selectionUI;
+        public BoundsVisualizer boundsVisualizer;
 
         ConstructionModeSwitcher modeSwitcher;
 
@@ -14,7 +15,9 @@ namespace Tookuyam
             SelectMode selectMode = new(
                 selectionUI
             );
-            EditMode editMode = new();
+            EditMode editMode = new(
+                boundsVisualizer
+            );
             ExistingMode existingMode = new();
 
             modeSwitcher = new ConstructionModeSwitcher(
@@ -22,6 +25,11 @@ namespace Tookuyam
                 editMode,
                 existingMode
             );
+        }
+
+        public void SetEditObject(GameObject gameObject)
+        {
+            boundsVisualizer.ChangeTarget(gameObject.transform);
         }
 
         public void ChangeMode(EConstructionModes mode)

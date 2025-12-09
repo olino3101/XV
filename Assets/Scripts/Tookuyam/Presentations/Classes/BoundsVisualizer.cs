@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class BoundsVisualizer : MonoBehaviour
 {
-    public Transform target;
-    public Material boundsMaterial;
+    [SerializeField] private Transform target;
+    [SerializeField] private Material boundsMaterial;
     private GameObject cube;
 
     void Start()
@@ -32,7 +32,7 @@ public class BoundsVisualizer : MonoBehaviour
 
     void AddBounds()
     {
-        if (cube != null)
+        if (cube != null || target == null)
             return ;
         Bounds bounds = RendererBoundsCalculator.Calculate(target.gameObject);
         bounds.Expand(0.1f);
@@ -40,6 +40,6 @@ public class BoundsVisualizer : MonoBehaviour
             .WithBounds(bounds)
             .WithMaterial(boundsMaterial)
             .Build();
-        cube.transform.SetParent(transform);
+        cube.transform.SetParent(target);
     }
 }

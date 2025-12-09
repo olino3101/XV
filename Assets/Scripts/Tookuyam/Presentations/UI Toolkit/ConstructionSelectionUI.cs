@@ -57,7 +57,8 @@ namespace Tookuyam
             foreach (var item in selectedItems)
             {
                 var selectableObject = item as SelectableObject;
-                Instantiate(selectableObject.gameObject);
+                GameObject go = Instantiate(selectableObject.gameObject);
+                modeFacade.SetEditObject(go);
                 break;
             }
             modeFacade.ChangeMode(EConstructionModes.Edit);
