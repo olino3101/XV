@@ -60,7 +60,7 @@ namespace Tookuyam
             {
                 var selectableObject = item as SelectableObject;
                 GameObject go = xvObjectFactory.Instantiate(selectableObject.gameObject);
-                modeFacade.ChangeEditMode(go);
+                modeFacade.ChangeEditModeNextFrame(go);
                 break;
             }
         }

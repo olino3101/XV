@@ -26,7 +26,7 @@ namespace Tookuyam
                 Transform parent = hit.collider.transform.parent;
                 if (parent)
                 {
-                    modeFacade.ChangeEditMode(parent.gameObject);
+                    modeFacade.ChangeEditModeNextFrame(parent.gameObject);
                     return;
                 }
             }

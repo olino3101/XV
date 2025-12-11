@@ -11,7 +11,6 @@ namespace Tookuyam
         public BoundsBoxSelector boundsSelector;
 
         ConstructionModeSwitcher modeSwitcher;
-        EConstructionModes nextMode = EConstructionModes.None;
 
         void OnEnable()
         {
@@ -45,36 +44,36 @@ namespace Tookuyam
             );
         }
 
-        public void SetEditObject(GameObject gameObject)
+        public void ChangeSelectModeNextFrame()
         {
-            BoundsBox bb = gameObject.GetComponent<BoundsBox>();
-            boundsVisualizer.ChangeTarget(bb);
+            ChangeModeNextFrame(EConstructionModes.Select);
         }
 
-        public async Awaitable ChangeMode(EConstructionModes mode)
-        {
-            if (nextMode != EConstructionModes.None)
-                return ;
-            nextMode = mode;
-            await HideNextFrame();
-            nextMode = EConstructionModes.None;
-        }
-
-        async Awaitable HideNextFrame()
-        {
-            await Awaitable.NextFrameAsync();
-            modeSwitcher.ChangeMode(nextMode);
-        }
-
-        public void ChangeEditMode(GameObject gameObject)
+        public void ChangeEditModeNextFrame(GameObject gameObject)
         {
             SetEditObject(gameObject);
-            _ = ChangeMode(EConstructionModes.Edit);
+            ChangeModeNextFrame(EConstructionModes.Edit);
+        }
+
+        public void ChangeExistingModeNextFrame()
+        {
+            ChangeModeNextFrame(EConstructionModes.Existing);
         }
 
         public void Exit()
         {
             modeSwitcher.Exit();
+        }
+
+        private void SetEditObject(GameObject gameObject)
+        {
+            BoundsBox bb = gameObject.GetComponent<BoundsBox>();
+            boundsVisualizer.ChangeTarget(bb);
+        }
+
+        private void ChangeModeNextFrame(EConstructionModes mode)
+        {
+            _ = modeSwitcher.ChangeModeAtNextFrame(mode);
         }
     }
 }

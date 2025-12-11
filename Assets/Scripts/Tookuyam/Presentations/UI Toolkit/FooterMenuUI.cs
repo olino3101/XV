@@ -10,7 +10,7 @@ namespace Tookuyam
 
         public void OnClickConstructionButton(ClickEvent evt)
         {
-            _ = modeFacade.ChangeMode(EConstructionModes.Select);
+            modeFacade.ChangeSelectModeNextFrame();
         }
     }
 }
