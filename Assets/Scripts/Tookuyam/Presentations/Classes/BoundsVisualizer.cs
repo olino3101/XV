@@ -3,43 +3,25 @@ using UnityEngine;
 
 public class BoundsVisualizer : MonoBehaviour
 {
-    [SerializeField] private Transform target;
-    [SerializeField] private Material boundsMaterial;
-    private GameObject cube;
-
-    void Start()
-    {
-        AddBounds();
-    }
+    [SerializeField] private BoundsBox target;
 
     void OnEnable()
     {
-        AddBounds();
+        target?.SetVisibility(true);
     }
 
     void OnDisable()
     {
-        Destroy(cube);
-        cube = null;
+        if (target)
+            target.SetVisibility(false);
     }
 
-    public void ChangeTarget(Transform target)
+    public void ChangeTarget(BoundsBox target)
     {
+        if (this.target)
+            this.target.SetVisibility(false);
         this.target = target;
-        OnDisable();
-        AddBounds();
-    }
-
-    void AddBounds()
-    {
-        if (cube != null || target == null)
-            return ;
-        Bounds bounds = RendererBoundsCalculator.Calculate(target.gameObject);
-        bounds.Expand(0.1f);
-        cube = new BoundsCubeBuilder()
-            .WithBounds(bounds)
-            .WithMaterial(boundsMaterial)
-            .Build();
-        cube.transform.SetParent(target);
+        if (this.target)
+            this.target.SetVisibility(true);
     }
 }

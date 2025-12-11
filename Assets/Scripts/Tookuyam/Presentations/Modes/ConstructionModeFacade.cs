@@ -29,7 +29,8 @@ namespace Tookuyam
 
         public void SetEditObject(GameObject gameObject)
         {
-            boundsVisualizer.ChangeTarget(gameObject.transform);
+            BoundsBox bb = gameObject.GetComponent<BoundsBox>();
+            boundsVisualizer.ChangeTarget(bb);
         }
 
         public void ChangeMode(EConstructionModes mode)

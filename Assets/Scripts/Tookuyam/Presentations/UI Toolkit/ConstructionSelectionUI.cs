@@ -20,6 +20,8 @@ namespace Tookuyam
         private UIDocument uiDocument;
         [SerializeField]
         private ConstructionModeFacade modeFacade;
+        [SerializeField]
+        private XVObjectFactoroy xvObjectFactory;
 
         [Space(10)]
 
@@ -57,7 +59,7 @@ namespace Tookuyam
             foreach (var item in selectedItems)
             {
                 var selectableObject = item as SelectableObject;
-                GameObject go = Instantiate(selectableObject.gameObject);
+                GameObject go = xvObjectFactory.Instantiate(selectableObject.gameObject);
                 modeFacade.SetEditObject(go);
                 break;
             }
