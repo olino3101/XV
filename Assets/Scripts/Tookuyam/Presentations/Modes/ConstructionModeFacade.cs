@@ -1,3 +1,4 @@
+using System.Collections;
 using Tookuyam;
 using UnityEngine;
 
@@ -7,8 +8,10 @@ namespace Tookuyam
     {
         public ConstructionSelectionUI selectionUI;
         public BoundsVisualizer boundsVisualizer;
+        public BoundsBoxSelector boundsSelector;
 
         ConstructionModeSwitcher modeSwitcher;
+        EConstructionModes nextMode = EConstructionModes.None;
 
         void OnEnable()
         {
@@ -16,7 +19,8 @@ namespace Tookuyam
                 selectionUI
             );
             EditMode editMode = new(
-                boundsVisualizer
+                boundsVisualizer,
+                boundsSelector
             );
             ExistingMode existingMode = new();
 
@@ -33,9 +37,25 @@ namespace Tookuyam
             boundsVisualizer.ChangeTarget(bb);
         }
 
-        public void ChangeMode(EConstructionModes mode)
+        public async Awaitable ChangeMode(EConstructionModes mode)
         {
-            modeSwitcher.ChangeMode(mode);
+            if (nextMode != EConstructionModes.None)
+                return ;
+            nextMode = mode;
+            await HideNextFrame();
+            nextMode = EConstructionModes.None;
+        }
+
+        async Awaitable HideNextFrame()
+        {
+            await Awaitable.NextFrameAsync();
+            modeSwitcher.ChangeMode(nextMode);
+        }
+
+        public void ChangeEditMode(GameObject gameObject)
+        {
+            SetEditObject(gameObject);
+            _ = ChangeMode(EConstructionModes.Edit);
         }
 
         public void Exit()
