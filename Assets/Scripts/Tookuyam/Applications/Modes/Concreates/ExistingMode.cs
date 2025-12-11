@@ -1,11 +1,12 @@
 
 using System;
+using System.Collections.Generic;
 
 namespace Tookuyam
 {
     public class ExistingMode : AConstructionMode
     {
-        public ExistingMode(Action onEnter, Action onExit) : base(onEnter, onExit)
+        public ExistingMode(List<ModePolicyRecord> policies) : base(policies)
         {
         }
     }    

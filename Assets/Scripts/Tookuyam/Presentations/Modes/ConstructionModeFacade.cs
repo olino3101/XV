@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Tookuyam;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -22,42 +23,61 @@ namespace Tookuyam
 
         void InitializeModeSwitcher()
         {
-            SelectMode selectMode = new(
-                () =>
-                {
-                    selectionUI.gameObject.SetActive(true);
-                },
-                () =>
-                {
-                    selectionUI.gameObject.SetActive(false);
-                }
-            );
-            EditMode editMode = new(
-                () =>
-                {
-                    boundsVisualizer.gameObject.SetActive(true);
-                    boundsSelector.gameObject.SetActive(true);
-                },
-                () =>
-                {
-                    boundsVisualizer.gameObject.SetActive(false);
-                    boundsSelector.gameObject.SetActive(false);
-                }
-            );
-            ExistingMode existingMode = new(() =>
-                {
-                    boundsSelector.gameObject.SetActive(true);
-                },
-                () =>
-                {
-                    boundsSelector.gameObject.SetActive(false);
-                });
+            SelectMode selectMode = InitializeSelectMode();
+            EditMode editMode = InitializeEditMode();
+            ExistingMode existingMode = InitializeExistingMode();
 
             modeSwitcher = new ConstructionModeSwitcher(
                 selectMode,
                 editMode,
                 existingMode
             );
+        }
+
+        SelectMode InitializeSelectMode()
+        {
+            List<ModePolicyRecord> selectModePolicies = new List<ModePolicyRecord>
+            {
+                new ModePolicyRecord(() => {
+                    selectionUI.gameObject.SetActive(true);
+                },() =>
+                {
+                    selectionUI.gameObject.SetActive(false);
+                })
+            };
+            return new SelectMode(selectModePolicies);
+        }
+
+        EditMode InitializeEditMode()
+        {
+            List<ModePolicyRecord> editModePolicies = new List<ModePolicyRecord>
+            {
+                new ModePolicyRecord(() =>
+                {
+                    boundsVisualizer.gameObject.SetActive(true);
+                    boundsSelector.gameObject.SetActive(true);
+                }, () =>
+                {
+                    boundsVisualizer.gameObject.SetActive(false);
+                    boundsSelector.gameObject.SetActive(false);
+                })
+            };
+
+            return new EditMode(editModePolicies);
+        }
+
+        ExistingMode InitializeExistingMode()
+        {
+            List<ModePolicyRecord> existingModePolicies = new List<ModePolicyRecord>
+            {
+                new ModePolicyRecord(() => {
+                    boundsSelector.gameObject.SetActive(true);
+                }, () =>
+                {
+                    boundsSelector.gameObject.SetActive(false);
+                })
+            };
+            return new ExistingMode(existingModePolicies);
         }
 
         public void OnEditButtonClick(ClickEvent evt)
@@ -80,10 +100,10 @@ namespace Tookuyam
         {
             Transform parent = hitinfo.collider.gameObject.transform.parent;
             if (parent == null)
-                return ;
+                return;
             ChangeEditModeNextFrame(parent.gameObject);
         }
-        
+
         public void Exit()
         {
             modeSwitcher.Exit();

@@ -7,23 +7,27 @@ namespace Tookuyam
 {
     public abstract class AConstructionMode : IConstructionMode
     {
-        readonly Action onEnter;
-        readonly Action onExit;
+        List<ModePolicyRecord> policies;
 
-        public AConstructionMode(Action onEnter, Action onExit)
+        public AConstructionMode(List<ModePolicyRecord> policies)
         {
-            this.onEnter = onEnter;
-            this.onExit = onExit;
+            this.policies = policies;
         }
 
         public void Enter()
         {
-            onEnter();
+            policies.ForEach(policy =>
+            {
+                policy.Enter();
+            });
         }
 
         public void Exit()
         {
-            onExit();
+            policies.ForEach(policy =>
+            {
+                policy.Exit();
+            });
         }
     }
 }

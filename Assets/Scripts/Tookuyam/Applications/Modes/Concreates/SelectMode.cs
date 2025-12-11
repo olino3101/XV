@@ -1,11 +1,11 @@
 
-using System;
+using System.Collections.Generic;
 
 namespace Tookuyam
 {
     public class SelectMode : AConstructionMode
     {
-        public SelectMode(Action onEnter, Action onExit) : base(onEnter, onExit)
+        public SelectMode(List<ModePolicyRecord> policies) : base(policies)
         {
         }
     }

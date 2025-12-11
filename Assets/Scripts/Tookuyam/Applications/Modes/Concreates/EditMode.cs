@@ -1,10 +1,12 @@
 using System;
+using System.Collections.Generic;
 
 namespace Tookuyam
 {
+
     public class EditMode : AConstructionMode
     {
-        public EditMode(Action onEnter, Action onExit) : base(onEnter, onExit)
+        public EditMode(List<ModePolicyRecord> policies) : base(policies)
         {
         }
     }
