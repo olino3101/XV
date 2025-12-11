@@ -65,6 +65,11 @@ namespace Tookuyam
             }
         }
 
+        public void OnClickEditButton(ClickEvent evt)
+        {
+            modeFacade.ChangeExistingModeNextFrame();
+        }
+
         void Update()
         {
             Keyboard current = Keyboard.current;
