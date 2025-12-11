@@ -9,17 +9,11 @@ namespace Tookuyam
     {
         IConstructionMode currentMode;
         EConstructionModes nextMode;
-        Dictionary<EConstructionModes, IConstructionMode> modes = new();
+        Dictionary<EConstructionModes, IConstructionMode> modes;
 
-        public ConstructionModeSwitcher(
-            SelectMode selectMode,
-            EditMode editMode,
-            ExistingMode existingMode
-        )
+        public ConstructionModeSwitcher(Dictionary<EConstructionModes, IConstructionMode> modes)
         {
-            modes[EConstructionModes.Select] = selectMode;
-            modes[EConstructionModes.Edit] = editMode;
-            modes[EConstructionModes.Existing] = existingMode;
+            this.modes = modes;
         }
 
         public void ChangeMode(EConstructionModes mode)

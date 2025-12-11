@@ -23,15 +23,13 @@ namespace Tookuyam
 
         void InitializeModeSwitcher()
         {
-            SelectMode selectMode = InitializeSelectMode();
-            EditMode editMode = InitializeEditMode();
-            ExistingMode existingMode = InitializeExistingMode();
-
-            modeSwitcher = new ConstructionModeSwitcher(
-                selectMode,
-                editMode,
-                existingMode
-            );
+            Dictionary<EConstructionModes, IConstructionMode> modes = new()
+            {
+                {EConstructionModes.Select, InitializeSelectMode()},
+                {EConstructionModes.Edit, InitializeEditMode()},
+                {EConstructionModes.Existing, InitializeExistingMode()},                
+            };
+            modeSwitcher = new ConstructionModeSwitcher(modes);
         }
 
         SelectMode InitializeSelectMode()
