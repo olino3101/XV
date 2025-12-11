@@ -1,16 +1,16 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UIElements;
 
 namespace Tookuyam
 {
     public class FooterMenuUI : MonoBehaviour
     {
-        [SerializeField]
-        private ConstructionModeFacade modeFacade;
+        [SerializeField] UnityEvent<ClickEvent> onClickConstructionButton;
 
         public void OnClickConstructionButton(ClickEvent evt)
         {
-            modeFacade.ChangeSelectModeNextFrame();
+            onClickConstructionButton.Invoke(evt);
         }
     }
 }

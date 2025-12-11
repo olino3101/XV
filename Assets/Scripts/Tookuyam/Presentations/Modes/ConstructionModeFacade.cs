@@ -1,6 +1,7 @@
 using System.Collections;
 using Tookuyam;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Tookuyam
 {
@@ -9,10 +10,17 @@ namespace Tookuyam
         public ConstructionSelectionUI selectionUI;
         public BoundsVisualizer boundsVisualizer;
         public BoundsBoxSelector boundsSelector;
+        [SerializeField]
+        private XVObjectFactoroy xvObjectFactory;
 
         ConstructionModeSwitcher modeSwitcher;
 
         void OnEnable()
+        {
+            InitializeModeSwitcher();
+        }
+
+        void InitializeModeSwitcher()
         {
             SelectMode selectMode = new(
                 () =>
@@ -52,25 +60,49 @@ namespace Tookuyam
             );
         }
 
-        public void ChangeSelectModeNextFrame()
+        public void OnEditButtonClick(ClickEvent evt)
+        {
+            ChangeExistingModeNextFrame();
+        }
+
+        public void OnClickConstructionButton(ClickEvent evt)
+        {
+            ChangeSelectModeNextFrame();
+        }
+
+        public void OnObjectChosen(GameObject gameObject)
+        {
+            GameObject go = xvObjectFactory.Instantiate(gameObject);
+            ChangeEditModeNextFrame(go);
+        }
+
+        public void OnClickBoundsBox(RaycastHit hitinfo)
+        {
+            Transform parent = hitinfo.collider.gameObject.transform.parent;
+            if (parent == null)
+                return ;
+            ChangeEditModeNextFrame(parent.gameObject);
+        }
+        
+        public void Exit()
+        {
+            modeSwitcher.Exit();
+        }
+
+        private void ChangeSelectModeNextFrame()
         {
             ChangeModeNextFrame(EConstructionModes.Select);
         }
 
-        public void ChangeEditModeNextFrame(GameObject gameObject)
+        private void ChangeEditModeNextFrame(GameObject gameObject)
         {
             SetEditObject(gameObject);
             ChangeModeNextFrame(EConstructionModes.Edit);
         }
 
-        public void ChangeExistingModeNextFrame()
+        private void ChangeExistingModeNextFrame()
         {
             ChangeModeNextFrame(EConstructionModes.Existing);
-        }
-
-        public void Exit()
-        {
-            modeSwitcher.Exit();
         }
 
         private void SetEditObject(GameObject gameObject)

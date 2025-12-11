@@ -1,12 +1,14 @@
 
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 namespace Tookuyam
 {
     public class BoundsBoxSelector : MonoBehaviour
     {
-        [SerializeField] private ConstructionModeFacade modeFacade;
+        [SerializeField] UnityEvent<RaycastHit> onClickEditableBoundsBox;
+        [SerializeField] UnityEvent onClickOtherArea;
 
         void Update()
         {
@@ -23,16 +25,11 @@ namespace Tookuyam
             int boundsBoxLayer = LayerMask.NameToLayer("EditableBoundsBox");
             if (ClickRayCast(out hit, 100f, 1 << boundsBoxLayer))
             {
-                Transform parent = hit.collider.transform.parent;
-                if (parent)
-                {
-                    modeFacade.ChangeEditModeNextFrame(parent.gameObject);
-                    return;
-                }
+                onClickEditableBoundsBox.Invoke(hit);
             }
             else
             {
-                modeFacade.Exit();
+                onClickOtherArea.Invoke();
             }
         }
 

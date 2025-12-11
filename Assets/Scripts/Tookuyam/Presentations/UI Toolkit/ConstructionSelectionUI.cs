@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.UIElements;
 using System.Runtime.CompilerServices;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
 
 namespace Tookuyam
 {
@@ -18,10 +19,9 @@ namespace Tookuyam
     {
         [SerializeField]
         private UIDocument uiDocument;
-        [SerializeField]
-        private ConstructionModeFacade modeFacade;
-        [SerializeField]
-        private XVObjectFactoroy xvObjectFactory;
+        [SerializeField] UnityEvent<ClickEvent> onEditButtonClick;
+        [SerializeField] UnityEvent<GameObject> onItemChosen;
+        [SerializeField] UnityEvent onEscapePressed;
 
         [Space(10)]
 
@@ -59,15 +59,14 @@ namespace Tookuyam
             foreach (var item in selectedItems)
             {
                 var selectableObject = item as SelectableObject;
-                GameObject go = xvObjectFactory.Instantiate(selectableObject.gameObject);
-                modeFacade.ChangeEditModeNextFrame(go);
+                onItemChosen.Invoke(selectableObject.gameObject);
                 break;
             }
         }
 
         public void OnClickEditButton(ClickEvent evt)
         {
-            modeFacade.ChangeExistingModeNextFrame();
+            onEditButtonClick.Invoke(evt);
         }
 
         void Update()
@@ -75,7 +74,7 @@ namespace Tookuyam
             Keyboard current = Keyboard.current;
             if (current.escapeKey.IsActuated()) // Close Menu <= Todo: Replace action with Input System
             {
-                modeFacade.Exit();
+                onEscapePressed.Invoke();
             }
         }
     }
