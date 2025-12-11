@@ -16,13 +16,27 @@ namespace Tookuyam
         void OnEnable()
         {
             SelectMode selectMode = new(
-                selectionUI
+                () => 
+                {
+                    selectionUI.gameObject.SetActive(true);
+                },
+                () => {
+                    selectionUI.gameObject.SetActive(false);
+                }
             );
             EditMode editMode = new(
-                boundsVisualizer,
-                boundsSelector
+                () =>
+                {
+                    boundsVisualizer.gameObject.SetActive(true);
+                    boundsSelector.gameObject.SetActive(true);
+                },
+                () =>
+                {
+                    boundsVisualizer.gameObject.SetActive(false);
+                    boundsSelector.gameObject.SetActive(false);
+                }
             );
-            ExistingMode existingMode = new();
+            ExistingMode existingMode = new(() => {}, () => {});
 
             modeSwitcher = new ConstructionModeSwitcher(
                 selectMode,

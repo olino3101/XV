@@ -1,16 +1,12 @@
 
+using System;
+
 namespace Tookuyam
 {
-    public class ExistingMode : IConstructionMode
+    public class ExistingMode : AConstructionMode
     {
-        public void Enter()
+        public ExistingMode(Action onEnter, Action onExit) : base(onEnter, onExit)
         {
-            
-        }
-
-        public void Exit()
-        {
-            
         }
     }    
 }

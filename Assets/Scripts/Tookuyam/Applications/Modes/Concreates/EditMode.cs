@@ -1,32 +1,11 @@
-using Tookuyam;
-using UnityEngine;
+using System;
 
 namespace Tookuyam
 {
-    public class EditMode : IConstructionMode
+    public class EditMode : AConstructionMode
     {
-        BoundsVisualizer boundsVisualizer;
-        BoundsBoxSelector boundsSelector;
-
-        public EditMode(
-            BoundsVisualizer boundsVisualizer,
-            BoundsBoxSelector boundsSelector
-        )
+        public EditMode(Action onEnter, Action onExit) : base(onEnter, onExit)
         {
-            this.boundsVisualizer = boundsVisualizer;
-            this.boundsSelector = boundsSelector;
-        }
-
-        public void Enter()
-        {
-            boundsVisualizer.gameObject.SetActive(true);
-            boundsSelector.gameObject.SetActive(true);
-        }
-
-        public void Exit()
-        {
-            boundsVisualizer.gameObject.SetActive(false);
-            boundsSelector.gameObject.SetActive(false);
         }
     }
 }

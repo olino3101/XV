@@ -1,25 +1,12 @@
 
+using System;
+
 namespace Tookuyam
 {
-    public class SelectMode : IConstructionMode
+    public class SelectMode : AConstructionMode
     {
-        ConstructionSelectionUI selectionUI;
-
-        public SelectMode(
-            ConstructionSelectionUI selectionUI
-        )
+        public SelectMode(Action onEnter, Action onExit) : base(onEnter, onExit)
         {
-            this.selectionUI = selectionUI;
-        }
-
-        public void Enter()
-        {
-            selectionUI.gameObject.SetActive(true);
-        }
-
-        public void Exit()
-        {
-            selectionUI.gameObject.SetActive(false);
         }
     }
 }
