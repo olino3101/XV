@@ -20,7 +20,7 @@ namespace Tookuyam
         void ChangeModeWithClickPoint()
         {
             RaycastHit hit;
-            int boundsBoxLayer = LayerMask.NameToLayer("BoundsBox");
+            int boundsBoxLayer = LayerMask.NameToLayer("EditableBoundsBox");
             if (ClickRayCast(out hit, 100f, 1 << boundsBoxLayer))
             {
                 Transform parent = hit.collider.transform.parent;
