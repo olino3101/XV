@@ -21,6 +21,7 @@ namespace Tookuyam
         private UIDocument uiDocument;
         [SerializeField] UnityEvent<ClickEvent> onEditButtonClick;
         [SerializeField] UnityEvent<GameObject> onItemChosen;
+        [SerializeField] UnityEvent<GameObject> selectedIndicesChanged;
         [SerializeField] UnityEvent onEscapePressed;
 
         [Space(10)]
@@ -46,12 +47,16 @@ namespace Tookuyam
 
             // Callback invoked when the user double clicks an item
             listView.itemsChosen += OnItemsChosen;
+            listView.selectedIndicesChanged += OnSelectedIndicesChanged;
         }
 
         void OnDisable()
         {
             if (objectList != null)
+            {
                 objectList.itemsChosen -= OnItemsChosen;
+                objectList.selectedIndicesChanged -= OnSelectedIndicesChanged;
+            }
         }
 
         void OnItemsChosen(IEnumerable<object> selectedItems)
@@ -61,6 +66,15 @@ namespace Tookuyam
                 var selectableObject = item as SelectableObject;
                 onItemChosen.Invoke(selectableObject.gameObject);
                 break;
+            }
+        }
+
+        void OnSelectedIndicesChanged(IEnumerable<int> selectedIndexes)
+        {
+            foreach (var index in selectedIndexes)
+            {
+                selectedIndicesChanged.Invoke(selectableObjects[index].gameObject);
+                break;                
             }
         }
 
