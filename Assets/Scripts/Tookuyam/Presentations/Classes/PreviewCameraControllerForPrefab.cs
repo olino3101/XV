@@ -8,6 +8,7 @@ namespace Tookuyam
     [RequireComponent(typeof(PreviewCamera))]
     public class PreviewCameraControllerForPrefab : MonoBehaviour
     {
+        [SerializeField] string previewLayerName;
         PreviewCamera previewCamera;
         GameObject nowPreviewObject;
 
@@ -23,10 +24,22 @@ namespace Tookuyam
 
         public void SetTarget(GameObject prefab)
         {
-            if (nowPreviewObject != null)
-                Destroy(nowPreviewObject);
+            CleanTarget();
             nowPreviewObject = Instantiate(prefab);
             previewCamera.SetTarget(nowPreviewObject);
+            int layer = LayerMask.NameToLayer(previewLayerName);
+            if (layer == -1)
+                return ;
+            LayerSetter.SetRecursive(nowPreviewObject, layer);
+        }
+
+        public void CleanTarget()
+        {
+            if (nowPreviewObject != null)
+            {
+                Destroy(nowPreviewObject);
+                nowPreviewObject = null;
+            }
         }
     }
 }

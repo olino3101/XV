@@ -11,6 +11,7 @@ namespace Tookuyam
         public ConstructionSelectionUI selectionUI;
         public BoundsVisualizer boundsVisualizer;
         public BoundsBoxSelector boundsSelector;
+        public PreviewCameraControllerForPrefab previewCameraController;
         [SerializeField]
         private XVObjectFactoroy xvObjectFactory;
 
@@ -41,6 +42,11 @@ namespace Tookuyam
                 },() =>
                 {
                     selectionUI.gameObject.SetActive(false);
+                }),
+                new ModePolicyRecord(() => {},
+                () =>
+                {
+                    previewCameraController.CleanTarget();
                 })
             };
             return new SelectMode(selectModePolicies);

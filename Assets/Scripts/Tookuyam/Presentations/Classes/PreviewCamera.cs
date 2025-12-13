@@ -36,6 +36,9 @@ namespace Tookuyam
             objectPreviewer.SetTargetTexture(targetTexture);
             objectPreviewer.SetBackgroundColor(backgroundColor);
             objectPreviewer.SetTargetObject(targetObject);
+            int layer = LayerMask.NameToLayer(previewLayer);
+            if (layer != -1)
+                objectPreviewer.SetLayer(layer);
         }
 
         public void SetTarget(GameObject gameObject)

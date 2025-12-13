@@ -50,6 +50,13 @@ namespace Tookuyam
             targetBounds = RendererBoundsCalculator.Calculate(obj);
         }
 
+        public void SetLayer(int layer)
+        {
+            if (layer == -1)
+                return ;
+            camera.cullingMask = 1 << layer;
+        }
+
         public void Focus()
         {
             if (targetBounds == null || targetObject == null || camera == null)
