@@ -113,6 +113,11 @@ namespace Tookuyam
             modeSwitcher.Exit();
         }
 
+        public void UnsetBounds()
+        {
+            boundsVisualizer.gameObject.SetActive(false);
+        }
+
         private void ChangeSelectModeNextFrame()
         {
             ChangeModeNextFrame(EConstructionModes.Select);
