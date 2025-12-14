@@ -77,11 +77,6 @@ public class CameraControler : MonoBehaviour
         return FirstPersonCamera.activeSelf;
     }
 
-    public float GetThirdPersonCameraAngle()
-    {
-        return ThirdPersonCamera.transform.eulerAngles.x;
-    }
-
     public Vector3 GetActiveCameraForward()
     {
         return IsFirstPersonActive() ?
