@@ -11,6 +11,8 @@
                 <ui:ListView fixed-item-height="30" name="ObjectList" style="flex-grow: 1; -unity-text-align: middle-left;" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="PreviewArea" style="flex-grow: 1;" />
+        <ui:VisualElement name="PreviewArea" style="flex-grow: 1;">
+            <ui:VisualElement name="VisualElement" class="preview-texture" />
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

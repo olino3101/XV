@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.UIElements;
 using System.Runtime.CompilerServices;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
 
 namespace Tookuyam
 {
@@ -18,6 +19,13 @@ namespace Tookuyam
     {
         [SerializeField]
         private UIDocument uiDocument;
+        [SerializeField] UnityEvent<ClickEvent> onEditButtonClick;
+        [SerializeField] UnityEvent<GameObject> onItemChosen;
+        [SerializeField] UnityEvent<GameObject> selectedIndicesChanged;
+        [SerializeField] UnityEvent onEscapePressed;
+
+        [Space(10)]
+
         [SerializeField]
         private List<SelectableObject> selectableObjects;
         ListView objectList;
@@ -25,7 +33,7 @@ namespace Tookuyam
         void OnEnable()
         {
             if (selectableObjects == null)
-                return ;
+                return;
             objectList = uiDocument.rootVisualElement.Q<ListView>("ObjectList");
 
             VisualElement makeItem() => new Label();
@@ -39,12 +47,16 @@ namespace Tookuyam
 
             // Callback invoked when the user double clicks an item
             listView.itemsChosen += OnItemsChosen;
+            listView.selectedIndicesChanged += OnSelectedIndicesChanged;
         }
 
         void OnDisable()
         {
             if (objectList != null)
+            {
                 objectList.itemsChosen -= OnItemsChosen;
+                objectList.selectedIndicesChanged -= OnSelectedIndicesChanged;
+            }
         }
 
         void OnItemsChosen(IEnumerable<object> selectedItems)
@@ -52,10 +64,23 @@ namespace Tookuyam
             foreach (var item in selectedItems)
             {
                 var selectableObject = item as SelectableObject;
-                Instantiate(selectableObject.gameObject);
+                onItemChosen.Invoke(selectableObject.gameObject);
                 break;
             }
-            gameObject.SetActive(false);
+        }
+
+        void OnSelectedIndicesChanged(IEnumerable<int> selectedIndexes)
+        {
+            foreach (var index in selectedIndexes)
+            {
+                selectedIndicesChanged.Invoke(selectableObjects[index].gameObject);
+                break;                
+            }
+        }
+
+        public void OnClickEditButton(ClickEvent evt)
+        {
+            onEditButtonClick.Invoke(evt);
         }
 
         void Update()
@@ -63,7 +88,7 @@ namespace Tookuyam
             Keyboard current = Keyboard.current;
             if (current.escapeKey.IsActuated()) // Close Menu <= Todo: Replace action with Input System
             {
-                gameObject.SetActive(false);
+                onEscapePressed.Invoke();
             }
         }
     }

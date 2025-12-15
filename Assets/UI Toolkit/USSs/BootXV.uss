@@ -72,3 +72,9 @@
     margin-bottom: 5px;
     margin-left: 5px;
 }
+
+.preview-texture {
+    flex-grow: 1;
+    background-image: url("project://database/Assets/RenderTextures/PreviewRenderTexture.renderTexture?fileID=8400000&guid=b50eda7c942340844ac84eaeb21771b4&type=2#PreviewRenderTexture");
+    -unity-background-scale-mode: scale-to-fit;
+}
