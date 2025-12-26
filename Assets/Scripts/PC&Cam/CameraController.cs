@@ -6,7 +6,7 @@ public class CameraController : MonoBehaviour
     public GameObject ThirdPersonCamera;
     public GameObject Player;
     public float moveSpeed = 5f;
-    public float mouveUpDownSpeed = 3f;
+    public float moveUpDownSpeed = 3f;
     [SerializeField] private readonly float ThirdCamOffset = 8f;
     private float FirstCamHeight;
 
@@ -21,8 +21,10 @@ public class CameraController : MonoBehaviour
     {
         if (InputManager.Instance.CanLookAround)
             LookAround();
+        else if (!InputManager.Instance.IsFirstPersonActive)
+            ThirdCamLookAtPlayer();
         if (InputManager.Instance.IsFirstPersonActive)
-        FirstCamFollowPlayer();
+            FirstCamFollowPlayer();
         if (!InputManager.Instance.PlayerCanMove && !InputManager.Instance.IsFirstPersonActive)
             MoveThirdPersonCamera();
     }
@@ -31,7 +33,7 @@ public class CameraController : MonoBehaviour
     {
         if (InputManager.Instance.MoveUpDown != 0f)
         {
-            float upDownInput = InputManager.Instance.MoveUpDown * mouveUpDownSpeed * Time.deltaTime;
+            float upDownInput = InputManager.Instance.MoveUpDown * moveUpDownSpeed * Time.deltaTime;
 
             transform.position += new Vector3(0, upDownInput, 0);
         }
@@ -80,6 +82,11 @@ public class CameraController : MonoBehaviour
         {
             Player.transform.Rotate(0, 1f, 0);
         }
+    }
+
+    private void ThirdCamLookAtPlayer()
+    {
+        ThirdPersonCamera.transform.LookAt(Player.transform);
     }
     public void ToggleCameraView()
     {

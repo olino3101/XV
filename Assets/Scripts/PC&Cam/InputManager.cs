@@ -5,7 +5,7 @@ public class InputManager : MonoBehaviour
 {
     public static InputManager Instance { get; private set; }
     public bool PlayerCanMove { get; private set; } = true;
-    public bool CanLookAround { get; private set; } = false;
+    public bool CanLookAround { get; private set; } = true;
     public Vector2 Move { get; private set; }
     public float MoveUpDown { get; private set; }
     public Vector2 MousePosition { get; private set; }
@@ -41,7 +41,9 @@ public class InputManager : MonoBehaviour
             if (IsFirstPersonActive)
             {
                 PlayerCanMove = true;
+
             }
+            CanLookAround = !CanLookAround;
             CameraController cameraController = FindFirstObjectByType<CameraController>();
             cameraController?.ToggleCameraView();
         }
