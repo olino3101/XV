@@ -34,6 +34,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "TogglePlayerMovement",
+                    "type": "Button",
+                    "id": "c049d261-77a7-420d-9aaa-57beb7859492",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "ToggleLookAround",
                     "type": "Button",
                     "id": "e0b76735-49a7-43b4-b815-7ea039bcf796",
@@ -171,6 +180,17 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "ToggleCameraView",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1bc4a6d6-8986-4279-92ee-0995e72099da",
+                    "path": "<Keyboard>/t",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "TogglePlayerMovement",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
