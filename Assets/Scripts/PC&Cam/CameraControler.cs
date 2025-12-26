@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 public class CameraControler : MonoBehaviour
 {
     private InputAction toggleCameraAction;
+    private InputAction toggleLookAroundAction;
+    private bool canLookAround = false;
     public GameObject FirstPersonCamera;
     public GameObject ThirdPersonCamera;
     public GameObject Player;
@@ -13,7 +15,9 @@ public class CameraControler : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        
         toggleCameraAction = InputSystem.actions.FindAction("ToggleCameraView");
+        toggleLookAroundAction = InputSystem.actions.FindAction("ToggleLookAround");
         UnityEngine.Debug.Log(toggleCameraAction);
 
         FirstCamHeight = FirstPersonCamera.transform.position.y;
@@ -23,6 +27,7 @@ public class CameraControler : MonoBehaviour
     {
         LookAround();
         ToggleCameraView();
+        ToggleLookAround();
     }
     
     void LookAround()
@@ -33,6 +38,8 @@ public class CameraControler : MonoBehaviour
             Debug.Log("No mouse connected");
             return;
         }
+
+        if (!canLookAround) return;
 
         if (mouse.delta.ReadValue() != Vector2.zero)
         {
@@ -69,6 +76,13 @@ public class CameraControler : MonoBehaviour
             }
             FirstPersonCamera.SetActive(!FirstPersonCamera.activeSelf);
             ThirdPersonCamera.SetActive(!ThirdPersonCamera.activeSelf);
+        }
+    }
+    void ToggleLookAround()
+    {
+        if (toggleLookAroundAction.WasPerformedThisFrame())
+        {
+            canLookAround = !canLookAround;
         }
     }
 

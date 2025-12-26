@@ -34,6 +34,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "ToggleLookAround",
+                    "type": "Button",
+                    "id": "e0b76735-49a7-43b4-b815-7ea039bcf796",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "MoveUpDown",
                     "type": "Value",
                     "id": "4273ca7b-ae3a-4755-a656-4310919d8c28",
@@ -157,11 +166,22 @@
                 {
                     "name": "",
                     "id": "9d89535c-34b4-43fd-84f6-f55b3b0f04d4",
-                    "path": "<Keyboard>/#(E)",
+                    "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "ToggleCameraView",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c58132ae-585f-4e47-bc83-02ae68b052dc",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "ToggleLookAround",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
