@@ -5,8 +5,13 @@ public class PlayerControl : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public CameraController cameraController;
+    private Animator animator;
 
-    // Update is called once per frame
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
+    // Update is called once per frame4
     void Update()
     {
         MovePlayer();
@@ -15,7 +20,10 @@ public class PlayerControl : MonoBehaviour
     void MovePlayer()
     {
         if (InputManager.Instance.PlayerCanMove == false || InputManager.Instance.Move == Vector2.zero)
+        {
+            animator.SetBool("IsWalking", false);
             return ;
+        }
 
         Vector3 camForward = cameraController.GetFirstCameraForward();
         camForward.y = 0;
@@ -29,6 +37,8 @@ public class PlayerControl : MonoBehaviour
 
         Vector3 move = camForward * adjustedInput.y + camRight * adjustedInput.x;
 
-        transform.position += move;
+        // transform.position += move;
+
+        animator.SetBool("IsWalking", true);
     }
 }

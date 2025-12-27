@@ -72,16 +72,20 @@ public class CameraController : MonoBehaviour
             Vector3 angles = currentCamera.transform.eulerAngles;
             angles.z = 0;
             currentCamera.transform.eulerAngles = angles;
+
+            if (InputManager.Instance.MousePosition.x <= turnThreshold && Application.isFocused)
+            {
+                Player.transform.Rotate(0, -1f, 0);
+                currentCamera.transform.Rotate(0, -1f, 0);
+            }
+            else if (InputManager.Instance.MousePosition.x >= Screen.width - turnThreshold && Application.isFocused)
+            {
+                Player.transform.Rotate(0, 1f, 0);
+                currentCamera.transform.Rotate(0, 1f, 0);
+            }
         }
 
-        if (InputManager.Instance.MousePosition.x <= turnThreshold && Application.isFocused)
-        {
-            Player.transform.Rotate(0, -1f, 0);
-        }
-        else if (InputManager.Instance.MousePosition.x >= Screen.width - turnThreshold && Application.isFocused)
-        {
-            Player.transform.Rotate(0, 1f, 0);
-        }
+        
     }
 
     private void ThirdCamLookAtPlayer()
