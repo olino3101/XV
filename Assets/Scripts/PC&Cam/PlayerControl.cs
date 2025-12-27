@@ -1,3 +1,4 @@
+using System.Threading;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -36,8 +37,6 @@ public class PlayerControl : MonoBehaviour
         Vector2 adjustedInput = InputManager.Instance.Move * moveSpeed * Time.deltaTime;
 
         Vector3 move = camForward * adjustedInput.y + camRight * adjustedInput.x;
-
-        // transform.position += move;
 
         animator.SetBool("IsWalking", true);
     }
